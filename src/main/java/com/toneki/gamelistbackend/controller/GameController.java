@@ -1,6 +1,7 @@
 package com.toneki.gamelistbackend.controller;
 
 import com.toneki.gamelistbackend.domain.Game;
+import com.toneki.gamelistbackend.dto.ApiResponse;
 import com.toneki.gamelistbackend.dto.GameDTO;
 import com.toneki.gamelistbackend.dto.GameMinDTO;
 import com.toneki.gamelistbackend.service.GameService;
@@ -21,18 +22,18 @@ public class GameController {
     private final GameService gameService;
 
     @GetMapping
-    public ResponseEntity<List<GameMinDTO>> list() {
+    public ResponseEntity<ApiResponse<List<GameMinDTO>>> getAllGames() {
         List<Game> games = gameService.findAll();
 
         List<GameMinDTO> gamesDTO = games.stream()
                 .map(GameMinDTO::new)
                 .toList();
 
-        return ResponseEntity.ok(gamesDTO);
+        return ResponseEntity.ok(ApiResponse.of(gamesDTO));
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<GameDTO> detail(@PathVariable Long id) {
+    public ResponseEntity<GameDTO> getGameById(@PathVariable Long id) {
         Game game = gameService.detail(id);
 
         GameDTO gameDTO = new GameDTO(game);

@@ -1,6 +1,7 @@
 package com.toneki.gamelistbackend.service;
 
 import com.toneki.gamelistbackend.domain.Game;
+import com.toneki.gamelistbackend.projection.GameMinProjection;
 import com.toneki.gamelistbackend.repository.GameRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -12,7 +13,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class GameService {
 
-    private  final GameRepository gameRepository;
+    private final GameRepository gameRepository;
 
     @Transactional(readOnly = true)
     public List<Game> findAll() {
@@ -22,5 +23,10 @@ public class GameService {
     @Transactional(readOnly = true)
     public Game detail(Long id) {
         return gameRepository.findById(id).get();
+    }
+
+    @Transactional(readOnly = true)
+    public List<GameMinProjection> findByList(Long id) {
+        return gameRepository.findByList(id);
     }
 }

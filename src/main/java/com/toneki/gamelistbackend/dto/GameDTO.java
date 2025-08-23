@@ -3,6 +3,7 @@ package com.toneki.gamelistbackend.dto;
 import com.toneki.gamelistbackend.domain.Game;
 
 public record GameDTO(
+        Long id,
         String title,
         Integer year,
         String genre,
@@ -14,6 +15,7 @@ public record GameDTO(
 ) {
     public GameDTO(Game game) {
         this(
+                game.getId(),
                 game.getTitle(),
                 game.getYear(),
                 game.getGenre(),
