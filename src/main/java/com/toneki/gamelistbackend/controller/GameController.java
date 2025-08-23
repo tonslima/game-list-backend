@@ -1,11 +1,13 @@
 package com.toneki.gamelistbackend.controller;
 
 import com.toneki.gamelistbackend.domain.Game;
+import com.toneki.gamelistbackend.dto.GameDTO;
 import com.toneki.gamelistbackend.dto.GameMinDTO;
 import com.toneki.gamelistbackend.service.GameService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -27,5 +29,14 @@ public class GameController {
                 .toList();
 
         return ResponseEntity.ok(gamesDTO);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<GameDTO> detail(@PathVariable Long id) {
+        Game game = gameService.detail(id);
+
+        GameDTO gameDTO = new GameDTO(game);
+
+        return ResponseEntity.ok(gameDTO);
     }
 }

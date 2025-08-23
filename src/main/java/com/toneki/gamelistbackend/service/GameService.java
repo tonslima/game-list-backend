@@ -4,6 +4,7 @@ import com.toneki.gamelistbackend.domain.Game;
 import com.toneki.gamelistbackend.repository.GameRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -13,7 +14,13 @@ public class GameService {
 
     private  final GameRepository gameRepository;
 
+    @Transactional(readOnly = true)
     public List<Game> findAll() {
         return gameRepository.findAll();
+    }
+
+    @Transactional(readOnly = true)
+    public Game detail(Long id) {
+        return gameRepository.findById(id).get();
     }
 }
