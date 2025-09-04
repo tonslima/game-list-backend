@@ -12,11 +12,11 @@ import java.util.List;
 public interface GameRepository extends JpaRepository<Game, Long> {
 
     @Query(nativeQuery = true, value = """
-            SELECT tb_game.id, tb_game.title, tb_game.game_year as `year`, tb_game.img_url AS `imgUrl`,
+            SELECT tb_game.id, tb_game.title, tb_game.game_year as gameYear, tb_game.img_url AS imgUrl,
             tb_game.short_description AS shortDescription, tb_game_list_item.position
             FROM tb_game
             INNER JOIN tb_game_list_item ON tb_game.id = tb_game_list_item.game_id
-            WHERE tb_game_list_item.list_id = 1
+            WHERE tb_game_list_item.list_id = :listId
             ORDER BY tb_game_list_item.position;
             """)
     List<GameMinProjection> findByList(Long listId);
